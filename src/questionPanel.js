@@ -174,6 +174,7 @@ class QuestionPanel extends React.Component {
       return (
         <QuestionSet key={questionSet.questionSetId}
                      id={questionSet.questionSetId}
+                     questionPanelId={this.questionPanelId}
                      name={questionSet.name}
                      questionSetHeader={questionSet.questionSetHeader}
                      questionSetText={questionSet.questionSetText}
@@ -191,7 +192,7 @@ class QuestionPanel extends React.Component {
     });
 
     let questionPanel = (
-      <div className={this.props.classes.questionPanel}>
+      <div id={this.props.panelId} className={this.props.classes.questionPanel}>
         {typeof this.props.panelHeader !== 'undefined'
           || typeof this.props.panelText !== 'undefined'
           ? (
