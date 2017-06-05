@@ -50,8 +50,10 @@ class QuestionSet extends React.Component {
                   : undefined}
                </div>
              )
-             : undefined}
-        {questions}
+          : undefined}
+        <div className={this.props.classes.questions}>
+          {questions}
+        </div>
       </div>
     );
 
