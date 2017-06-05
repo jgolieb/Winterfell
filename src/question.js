@@ -103,7 +103,7 @@ class Question extends React.Component {
 
     let labelId = `${this.props.questionId}-label`;
 
-    return (
+    let question = (
       <div className={this.props.classes.question}>
         {!!this.props.question
           ? (
@@ -152,6 +152,12 @@ class Question extends React.Component {
         {conditionalItems}
       </div>
     );
+
+    if (typeof this.props.transform === 'function') {
+      return this.props.transform(question, this.props);
+    }
+
+    return question;
   }
 
   componentDidMount() {

@@ -25,11 +25,12 @@ class QuestionSet extends React.Component {
                   validationErrors={this.props.validationErrors}
                   onAnswerChange={this.props.onAnswerChange}
                   onQuestionBlur={this.props.onQuestionBlur}
-                  onKeyDown={this.props.onKeyDown} />
+                  onKeyDown={this.props.onKeyDown}
+                  transform={question.transform} />
       );
     });
 
-    return (
+    let questionSet = (
       <div className={this.props.classes.questionSet}>
         {typeof this.props.questionSetHeader !== 'undefined'
            || typeof this.props.questionSetText !== 'undefined'
@@ -51,6 +52,12 @@ class QuestionSet extends React.Component {
         {questions}
       </div>
     );
+
+    if (typeof this.props.transform === 'function') {
+      return this.props.transform(questionSet, this.props);
+    }
+
+    return questionSet;
   }
 
 };

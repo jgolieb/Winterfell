@@ -183,11 +183,12 @@ class QuestionPanel extends React.Component {
                      validationErrors={this.state.validationErrors}
                      onAnswerChange={this.handleAnswerChange.bind(this)}
                      onQuestionBlur={this.handleQuestionBlur.bind(this)}
-                     onKeyDown={this.handleInputKeyDown.bind(this)} />
+                     onKeyDown={this.handleInputKeyDown.bind(this) }
+                     transform={questionSet.transform} />
       );
     });
 
-    return (
+    let questionPanel = (
       <div className={this.props.classes.questionPanel}>
         {typeof this.props.panelHeader !== 'undefined'
           || typeof this.props.panelText !== 'undefined'
@@ -232,6 +233,12 @@ class QuestionPanel extends React.Component {
         </div>
       </div>
     );
+
+    if (typeof this.props.transform === 'function') {
+      return this.props.transform(questionPanel, this.props);
+    }
+
+    return questionPanel;
   }
 
 };
