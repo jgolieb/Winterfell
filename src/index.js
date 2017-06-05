@@ -132,6 +132,8 @@ class Winterfell extends React.Component {
     var currentPanel = _.find(this.state.schema.questionPanels,
                           panel => panel.panelId == this.state.currentPanel.panelId);
 
+    var classes = Object.assign({}, this.state.schema.classes, currentPanel.classes);
+
     return (
       <form method={this.props.method}
             encType={this.props.encType}
@@ -140,7 +142,7 @@ class Winterfell extends React.Component {
             className={this.state.schema.classes.form}>
         <div className={this.state.schema.classes.questionPanels}>
           <QuestionPanel schema={this.state.schema}
-                         classes={this.state.schema.classes}
+                         classes={classes}
                          panelId={currentPanel.panelId}
                          panelIndex={currentPanel.panelIndex}
                          panelHeader={currentPanel.panelHeader}

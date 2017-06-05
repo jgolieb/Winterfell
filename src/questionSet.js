@@ -7,6 +7,8 @@ class QuestionSet extends React.Component {
 
   render() {
     var questions = this.props.questions.map(question => {
+      var classes = Object.assign({}, this.props.classes, question.classes);
+
       return (
         <Question key={question.questionId}
                   questionSetId={this.props.id}
@@ -18,7 +20,7 @@ class QuestionSet extends React.Component {
                   postText={question.postText}
                   value={this.props.questionAnswers[question.questionId]}
                   input={question.input}
-                  classes={this.props.classes}
+                  classes={classes}
                   renderError={this.props.renderError}
                   renderRequiredAsterisk={this.props.renderRequiredAsterisk}
                   questionAnswers={this.props.questionAnswers}

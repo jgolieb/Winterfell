@@ -169,6 +169,8 @@ class QuestionPanel extends React.Component {
         return undefined;
       }
 
+      var classes = Object.assign({}, this.props.classes, questionSet.classes);
+
       return (
         <QuestionSet key={questionSet.questionSetId}
                      id={questionSet.questionSetId}
@@ -176,7 +178,7 @@ class QuestionPanel extends React.Component {
                      questionSetHeader={questionSet.questionSetHeader}
                      questionSetText={questionSet.questionSetText}
                      questions={questionSet.questions}
-                     classes={this.props.classes}
+                     classes={classes}
                      questionAnswers={this.props.questionAnswers}
                      renderError={this.props.renderError}
                      renderRequiredAsterisk={this.props.renderRequiredAsterisk}
