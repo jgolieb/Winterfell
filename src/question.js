@@ -104,7 +104,7 @@ class Question extends React.Component {
     let labelId = `${this.props.questionId}-label`;
 
     let question = (
-      <div className={this.props.classes.question}>
+      <div className={this.props.classes.question} onClick={this.props.onClick}>
         {!!this.props.question
           ? (
               <label className={this.props.classes.label}
@@ -198,7 +198,8 @@ Question.defaultProps = {
   onQuestionBlur         : () => {},
   onKeyDown              : () => {},
   renderError            : undefined,
-  renderRequiredAsterisk : undefined
+  renderRequiredAsterisk : undefined,
+  onClick                : () => {}
 };
 
 module.exports = Question;

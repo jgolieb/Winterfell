@@ -32,12 +32,36 @@ class QuestionSet extends React.Component {
       );
     });
 
+    var buttons = this.props.buttons.map((button, index) => {
+      let content = button.text || "";
+
+      if (button.content) {
+        if (typeof button.content === 'function') {
+          content = button.content();
+        } else {
+          content = button.content;
+        }
+      }
+
+      return (
+        <button type={'button'}
+          key={index}
+          className={button.classes}
+          title={button.text}
+          onClick={(event) => button.onClick(this, event) }>
+          {content}
+        </button>)
+    });
+
     let questionSet = (
       <div className={this.props.classes.questionSet}>
         {typeof this.props.questionSetHeader !== 'undefined'
            || typeof this.props.questionSetText !== 'undefined'
            ? (
-               <div className={this.props.classes.questionSetHeaderContainer}>
+              <div className={this.props.classes.questionSetHeaderContainer}>
+                <div className={this.props.classes.questionSetHeaderButtons}>
+                  {buttons}
+                </div>
                 {typeof this.props.questionSetHeader !== 'undefined'
                   ? <h4 className={this.props.classes.questionSetHeader}>
                       {this.props.questionSetHeader}
@@ -79,7 +103,9 @@ QuestionSet.defaultProps = {
   renderRequiredAsterisk : undefined,
   onAnswerChange         : () => {},
   onQuestionBlur         : () => {},
-  onKeyDown              : () => {}
+  onKeyDown              : () => {},
+  onClick                : () => {},
+  buttons                : [],
 };
 
 module.exports = QuestionSet;
