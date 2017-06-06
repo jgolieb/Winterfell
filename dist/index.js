@@ -145,6 +145,8 @@ var Winterfell = (function (_React$Component) {
         return panel.panelId == _this2.state.currentPanel.panelId;
       });
 
+      var classes = Object.assign({}, this.state.schema.classes, currentPanel.classes);
+
       return React.createElement(
         'form',
         { method: this.props.method,
@@ -156,7 +158,7 @@ var Winterfell = (function (_React$Component) {
           'div',
           { className: this.state.schema.classes.questionPanels },
           React.createElement(QuestionPanel, { schema: this.state.schema,
-            classes: this.state.schema.classes,
+            classes: classes,
             panelId: currentPanel.panelId,
             panelIndex: currentPanel.panelIndex,
             panelHeader: currentPanel.panelHeader,
@@ -172,7 +174,8 @@ var Winterfell = (function (_React$Component) {
             onAnswerChange: this.handleAnswerChange.bind(this),
             onPanelBack: this.handleBackButtonClick.bind(this),
             onSwitchPanel: this.handleSwitchPanel.bind(this),
-            onSubmit: this.handleSubmit.bind(this) })
+            onSubmit: this.handleSubmit.bind(this),
+            transform: currentPanel.transform })
         )
       );
     }
@@ -202,7 +205,7 @@ Winterfell.addErrorMessages = Winterfell.errorMessages.addErrorMessages;
 Winterfell.addValidationMethod = Winterfell.validation.addValidationMethod;
 Winterfell.addValidationMethods = Winterfell.validation.addValidationMethods;
 
-Winterfell.defaultPRops = {
+Winterfell.defaultProps = {
   onSubmit: function onSubmit() {},
   onUpdate: function onUpdate() {},
   onSwitchPanel: function onSwitchPanel() {},

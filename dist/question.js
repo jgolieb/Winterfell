@@ -100,9 +100,9 @@ var Question = (function (_React$Component) {
 
       var labelId = this.props.questionId + '-label';
 
-      return React.createElement(
+      var question = React.createElement(
         'div',
-        { className: this.props.classes.question },
+        { className: this.props.classes.question, onClick: this.props.onClick },
         !!this.props.question ? React.createElement(
           'label',
           { className: this.props.classes.label,
@@ -137,6 +137,12 @@ var Question = (function (_React$Component) {
         ) : undefined,
         conditionalItems
       );
+
+      if (typeof this.props.transform === 'function') {
+        return this.props.transform(question, this.props);
+      }
+
+      return question;
     }
   }, {
     key: 'componentDidMount',
@@ -176,7 +182,8 @@ Question.defaultProps = {
   onQuestionBlur: function onQuestionBlur() {},
   onKeyDown: function onKeyDown() {},
   renderError: undefined,
-  renderRequiredAsterisk: undefined
+  renderRequiredAsterisk: undefined,
+  onClick: function onClick() {}
 };
 
 module.exports = Question;

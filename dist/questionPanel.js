@@ -185,25 +185,32 @@ var QuestionPanel = (function (_React$Component) {
           return undefined;
         }
 
+        var classes = Object.assign({}, _this3.props.classes, questionSet.classes);
+
         return React.createElement(QuestionSet, { key: questionSet.questionSetId,
           id: questionSet.questionSetId,
+          questionPanelId: _this3.questionPanelId,
           name: questionSet.name,
           questionSetHeader: questionSet.questionSetHeader,
           questionSetText: questionSet.questionSetText,
           questions: questionSet.questions,
-          classes: _this3.props.classes,
+          classes: classes,
           questionAnswers: _this3.props.questionAnswers,
           renderError: _this3.props.renderError,
           renderRequiredAsterisk: _this3.props.renderRequiredAsterisk,
           validationErrors: _this3.state.validationErrors,
           onAnswerChange: _this3.handleAnswerChange.bind(_this3),
           onQuestionBlur: _this3.handleQuestionBlur.bind(_this3),
-          onKeyDown: _this3.handleInputKeyDown.bind(_this3) });
+          onKeyDown: _this3.handleInputKeyDown.bind(_this3),
+          onClick: questionSet.onClick,
+          transform: questionSet.transform,
+          collapsed: questionSet.collapsed,
+          buttons: questionSet.buttons });
       });
 
-      return React.createElement(
+      var questionPanel = React.createElement(
         'div',
-        { className: this.props.classes.questionPanel },
+        { id: this.props.panelId, className: this.props.classes.questionPanel },
         typeof this.props.panelHeader !== 'undefined' || typeof this.props.panelText !== 'undefined' ? React.createElement(
           'div',
           { className: this.props.classes.questionPanelHeaderContainer },
@@ -234,6 +241,12 @@ var QuestionPanel = (function (_React$Component) {
             className: this.props.classes.controlButton }) : undefined
         )
       );
+
+      if (typeof this.props.transform === 'function') {
+        return this.props.transform(questionPanel, this.props);
+      }
+
+      return questionPanel;
     }
   }]);
 

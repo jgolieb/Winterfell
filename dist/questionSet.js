@@ -28,6 +28,8 @@ var QuestionSet = (function (_React$Component) {
       var _this = this;
 
       var questions = this.props.questions.map(function (question) {
+        var classes = Object.assign({}, _this.props.classes, question.classes);
+
         return React.createElement(Question, { key: question.questionId,
           questionSetId: _this.props.id,
           questionId: question.questionId,
@@ -38,22 +40,52 @@ var QuestionSet = (function (_React$Component) {
           postText: question.postText,
           value: _this.props.questionAnswers[question.questionId],
           input: question.input,
-          classes: _this.props.classes,
+          classes: classes,
           renderError: _this.props.renderError,
           renderRequiredAsterisk: _this.props.renderRequiredAsterisk,
           questionAnswers: _this.props.questionAnswers,
           validationErrors: _this.props.validationErrors,
           onAnswerChange: _this.props.onAnswerChange,
           onQuestionBlur: _this.props.onQuestionBlur,
-          onKeyDown: _this.props.onKeyDown });
+          onKeyDown: _this.props.onKeyDown,
+          transform: question.transform });
       });
 
-      return React.createElement(
+      var buttons = this.props.buttons.map(function (button, index) {
+        var content = button.text || "";
+
+        if (button.content) {
+          if (typeof button.content === 'function') {
+            content = button.content();
+          } else {
+            content = button.content;
+          }
+        }
+
+        return React.createElement(
+          'button',
+          { type: 'button',
+            key: index,
+            className: button.classes,
+            title: button.text,
+            onClick: function (event) {
+              return button.onClick(_this, event);
+            } },
+          content
+        );
+      });
+
+      var questionSet = React.createElement(
         'div',
         { className: this.props.classes.questionSet },
         typeof this.props.questionSetHeader !== 'undefined' || typeof this.props.questionSetText !== 'undefined' ? React.createElement(
           'div',
           { className: this.props.classes.questionSetHeaderContainer },
+          React.createElement(
+            'div',
+            { className: this.props.classes.questionSetHeaderButtons },
+            buttons
+          ),
           typeof this.props.questionSetHeader !== 'undefined' ? React.createElement(
             'h4',
             { className: this.props.classes.questionSetHeader },
@@ -65,8 +97,18 @@ var QuestionSet = (function (_React$Component) {
             this.props.questionSetText
           ) : undefined
         ) : undefined,
-        questions
+        React.createElement(
+          'div',
+          { className: this.props.classes.questions },
+          questions
+        )
       );
+
+      if (typeof this.props.transform === 'function') {
+        return this.props.transform(questionSet, this.props);
+      }
+
+      return questionSet;
     }
   }]);
 
@@ -88,7 +130,9 @@ QuestionSet.defaultProps = {
   renderRequiredAsterisk: undefined,
   onAnswerChange: function onAnswerChange() {},
   onQuestionBlur: function onQuestionBlur() {},
-  onKeyDown: function onKeyDown() {}
+  onKeyDown: function onKeyDown() {},
+  onClick: function onClick() {},
+  buttons: []
 };
 
 module.exports = QuestionSet;
